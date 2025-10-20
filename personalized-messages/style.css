@@ -1,0 +1,270 @@
+/* ======================================================= */
+/* 1. CORE FESTIVE BODY/BACKGROUND STYLES (index.html) */
+/* ======================================================= */
+
+/* Animated Gradient Keyframes */
+@keyframes festiveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    /* Rich, animated background colors */
+    background: linear-gradient(-45deg, #FF6F61, #FFD700, #4CAF50, #1976D2); 
+    background-size: 400% 400%;
+    animation: festiveGradient 20s ease infinite; 
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+    overflow: hidden; /* Important for the fireworks and lights */
+    position: relative;
+}
+
+/* Password Container (The center box) */
+.container {
+    background: rgba(255, 255, 255, 0.9); 
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+    max-width: 450px;
+    width: 90%;
+    z-index: 100; /* Ensure this is on top of all effects */
+    border: 3px solid #FFD700; /* Golden border */
+    position: relative; /* Needed for z-index to work */
+}
+
+h1 {
+    color: #b35900; 
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    margin-bottom: 25px;
+}
+.container p {
+    color: #4a4a4a; 
+}
+
+/* Input and Button Styles */
+#passwordInput {
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 80%;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #f0f0f0; 
+}
+
+button {
+    background-color: #FF9800; 
+    color: white;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #f57c00;
+    transform: scale(1.02);
+}
+
+.error {
+    color: #FFEB3B; 
+    background-color: #c0392b;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* ======================================================= */
+/* 2. DIYA (LAMP) STYLES with Enhanced FLICKER */
+/* ======================================================= */
+
+/* Flickering Animation */
+@keyframes pulseGlow {
+    0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+    50% { transform: translateX(-50%) scale(1.03); opacity: 1; }
+    100% { transform: translateX(-50%) scale(0.98); opacity: 0.95; }
+}
+
+/* Shared Diya Style */
+.diya-left, .diya-right {
+    position: absolute;
+    bottom: 20px; 
+    width: 100px;
+    height: 30px;
+    background: #A0522D; 
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    z-index: 50; /* Above the fireworks but below the main box */
+}
+
+.diya-left { left: 15%; }
+.diya-right { right: 15%; }
+
+/* The FLAME effect */
+.diya-left::before, .diya-right::before {
+    content: '';
+    position: absolute;
+    top: -30px; 
+    left: 50%;
+    width: 15px;
+    height: 35px;
+    background: #FFEB3B; 
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 10px #FFEB3B, 0 0 20px #FFC107, 0 0 30px rgba(255, 152, 0, 0.8);
+    animation: pulseGlow 0.8s infinite alternate; /* Faster flicker */
+}
+
+/* Subtle Light Garland Effect (Kept this for background depth) */
+.festive-lights {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    
+    background-image: 
+        repeating-linear-gradient(90deg, transparent 0%, transparent 20px, rgba(255, 0, 0, 0.7) 20px, rgba(255, 0, 0, 0.7) 40px),
+        repeating-linear-gradient(45deg, transparent 0%, transparent 30px, rgba(0, 255, 0, 0.7) 30px, rgba(0, 255, 0, 0.7) 60px),
+        repeating-linear-gradient(135deg, transparent 0%, transparent 40px, rgba(0, 0, 255, 0.7) 40px, rgba(0, 0, 255, 0.7) 80px);
+    
+    background-size: 80px 80px;
+    animation: moveLights 10s linear infinite;
+    opacity: 0.2; 
+}
+
+@keyframes moveLights {
+    from { background-position: 0 0; }
+    to { background-position: 80px 80px; }
+}
+
+
+/* ======================================================= */
+/* 3. FIREWORKS ANIMATION (For dynamic feel) */
+/* ======================================================= */
+
+.fireworks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.firework {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    opacity: 0;
+    
+    /* Set different start positions for the 3 firework elements */
+    &:nth-child(1) {
+        top: 20%; left: 30%;
+        animation: spark 3s infinite 0s, explode 3s infinite 0s;
+    }
+    &:nth-child(2) {
+        top: 80%; left: 70%;
+        animation: spark 3s infinite 1s, explode 3s infinite 1s; /* 1s delay */
+    }
+    &:nth-child(3) {
+        top: 50%; left: 50%;
+        animation: spark 3s infinite 2s, explode 3s infinite 2s; /* 2s delay */
+    }
+}
+
+/* The burst animation (creating the firework shape) */
+@keyframes explode {
+    0%, 10% { opacity: 0; }
+    10% { opacity: 1; }
+    100% {
+        opacity: 0;
+        box-shadow:
+            /* This complex box-shadow creates the starburst effect */
+            10px 0px #ff0000, -10px 0px #ff0000, 0px 10px #ff0000, 0px -10px #ff0000,
+            5px 5px #ffd700, -5px 5px #ffd700, 5px -5px #ffd700, -5px -5px #ffd700,
+            15px 0px #00ff00, -15px 0px #00ff00, 0px 15px #00ff00, 0px -15px #00ff00,
+            8px 8px #00ffff, -8px 8px #00ffff, 8px -8px #00ffff, -8px -8px #00ffff;
+        transform: scale(25) rotate(180deg);
+    }
+}
+
+/* The spark effect (creating a small, rising glow before the burst) */
+@keyframes spark {
+    0% { transform: scale(1); opacity: 0; background-color: #fff; }
+    5% { transform: scale(2); opacity: 0.8; }
+    9% { transform: translateY(-50vh); opacity: 0.1; }
+    10% { transform: translateY(0vh); opacity: 0; }
+}
+
+
+/* ======================================================= */
+/* 4. STYLES FOR THE PERSONALIZED MESSAGE PAGES */
+/* (Applies to person1.html to person5.html) */
+/* ======================================================= */
+
+.message-container {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    max-width: 550px;
+    width: 90%;
+    z-index: 10;
+    text-align: center;
+}
+
+.message-container h1 {
+    color: #8E44AD; 
+    margin-bottom: 25px;
+}
+
+.personal-photo {
+    width: 100%;
+    max-width: 280px; 
+    height: auto;
+    border-radius: 50%; 
+    margin: 25px auto;
+    border: 6px solid #FFD700; 
+    object-fit: cover;
+    aspect-ratio: 1/1; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.personalized-message {
+    font-size: 1.15em;
+    line-height: 1.7;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f7f3ff; 
+    border-radius: 10px;
+    border-left: 6px solid #8E44AD; 
+    text-align: left;
+    color: #333;
+}
+
+.signature {
+    margin-top: 30px;
+    font-style: italic;
+    color: #7f8c8d;
+    font-size: 1.1em;
+    text-align: right;
+}
